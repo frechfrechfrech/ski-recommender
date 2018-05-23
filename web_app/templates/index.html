@@ -16,7 +16,7 @@
   justify-content: center;
 }
 body {
-  background-image: url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/an-alpine-ski-trail-on-wildcat-mountain-tim-laman.jpg');
+  background-image: url('https://images.unsplash.com/photo-1498360697998-e46f75c03c17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=30e5c8c63f3d5293ade6490b42e482fa&auto=format&fit=crop&w=1050&q=80');
   background-size: 100%
 }
 @media only screen and (max-width: 600px) {
@@ -29,11 +29,11 @@ button {
             padding: 1vh 2vw;
             background-color: cornflowerblue;
             color: white;
-            border-radius: 16px; 
+            border-radius: 16px;
             border-color:white;
-            padding-left: 12px; 
-            padding-right: 12px; 
-            font-size: 16px; 
+            padding-left: 12px;
+            padding-right: 12px;
+            font-size: 16px;
             font-weight: bold;
         }
 
@@ -48,23 +48,35 @@ button {
 
 <div class="main" style="padding: 20px 25% 20px 25%;">
 
-  <h3><b>Get recommendations of trails to ski based on a trail you know like:</b></h3>
+  <h3><b>Get mutual fund recommendations for a broker dealer office:</b></h3>
 
 <br>
 
 <form action='/recommendations', method='POST'>
-  <div><h4><b>Step 1: Choose a resort that you have skied at.</b></h4></div>
+  <div><h4><b>Step 1: Choose the state.</b></h4></div>
 
-<select name="resort" id="select_resort" class="selectpicker form-control">
-    <option selected="selected" value = ''>Select a resort with your favorite trail...</option>
-    {% for resort in df['resort'].unique()|sort %}
-    <option value="{{ resort }}">{{ resort }}</option>
+<select name="state" id="select_broker" class="selectpicker form-control">
+    <option selected="selected" value = ''>No State Selected</option>
+    {% for state in df_zip['State'].unique()|sort %}
+    <option value="{{ state }}">{{ state }}</option>
     {% endfor %}
 </select>
 
 <br><br>
 
-<div><h4><b>Step 2: Choose a trail that you know you liked at that ski area.</b>
+<form action='/recommendations', method='POST'>
+  <div><h4><b>Step 2: Choose the broker.</b></h4></div>
+
+<select name="broker" id="select_broker" class="selectpicker form-control">
+    <option selected="selected" value = ''>No Broker Selected</option>
+    {% for broker in df_firm_zip['BROKER_NAME'].unique()|sort %}
+    <option value="{{ broker }}">{{ broker }}</option>
+    {% endfor %}
+</select>
+
+<br><br>
+
+<!-- <div><h4><b>Step 2: Choose a trail that you know you liked at that ski area.</b>
 
 <a href="#" id="make_url"><font color="black"><b><u>Need help remembering trails?</u></b></font></a></h4> </div>
 
@@ -95,10 +107,10 @@ button {
     });
 </script>
 
-
-<select name="trail" id="select_trail" class="selectpicker form-control" disabled>
+ -->
+<!-- <select name="trail" id="select_trail" class="selectpicker form-control" disabled>
     <option selected="selected" value = ''>Select a Trail...</option>
-</select>
+</select> -->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -145,7 +157,7 @@ button {
 <br>
 <br>
 
-<div><h4><b>Step 3 (Optional): Choose the resort where you want trails recommended. It can be where you are planning to ski today or anywhere for general reference.</b></h4></div>
+<!-- <div><h4><b>Step 3 (Optional): Choose the resort where you want trails recommended. It can be where you are planning to ski today or anywhere for general reference.</b></h4></div>
 
 <select name="dest_resort" id="select_resort_dest" class="selectpicker form-control">
     <option selected="selected" value = ''>Where are you skiing today?</option>
@@ -184,10 +196,10 @@ button {
   <input type="checkbox" name="blue" value="blue"> <b>Blue Trails</b><br>
   <input type="checkbox" name="black" value="black"> <b>Black Trails</b><br>
   <input type="checkbox" name="bb" value="bb"> <b>Double Black Trails</b><br>
-</div>
+</div> -->
 <br>
   <div class='move-button'>
-    
+
   <button type="submit">Recommend</button>
 
 </div>
@@ -197,6 +209,6 @@ button {
 </form>
 </form>
 </div>
-
+<!-- Photo by Jacalyn Beales on Unsplash -->
 
 {% endblock %}
