@@ -16,6 +16,7 @@ with open('../data/df_firm_zip_lookup.csv') as f:
 with open('../data/free-zipcode-database-Primary.csv') as f:
     df_zip = pd.read_csv(f)
 
+
 features = ['top_elev_(ft)',
             'bottom_elev_(ft)',
             'vert_rise_(ft)',
@@ -28,6 +29,7 @@ features = ['top_elev_(ft)',
 X = df[features].values
 ss = StandardScaler()
 X = ss.fit_transform(X)
+
 
 def cos_sim_recs(index, n=5, resort=None, color=None):
     trail = X[index].reshape(1,-1)
@@ -66,6 +68,21 @@ def index():
 def trails():
     return render_template('index.html',df=df, df_firm_zip = df_firm_zip, df_zip = df_zip)
 
+@app.route('/fund_results/<int:office_id>', methods=['GET'])
+def fund_results(office_id):
+
+    # Recommendation 1: top_n_1.p
+    # Recommendation 2: top_n_2.p
+    # Office 1: office_desc_1.p
+    # Office 2: office_desc_2.p
+
+    with open('../data/office_desc_{}.p'.format(office_id), 'rb') as f:
+        office_description = pickle.load(f)
+
+    with open('../data/top_n_{}.p'.format(office_id), 'rb') as f:
+        fund_recommendations = pickle.load(f)
+
+    return render_template('fund_results.html', office_description=office_description, fund_recommendations=fund_recommendations)
 
 @app.route('/recommendations', methods=['GET','POST'])
 def recommendations():

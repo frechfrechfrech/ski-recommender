@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style type="text/css">
+
+
+div.main h1{
+  text-align: center;
+}
+
+.table {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.table th {
+  text-align: center;
+}
+
+
+.highlight {
+  background-color: green;
+}
+
+# To highlight green use 'success' class
+# To highlight red use 'danger' class
+
+</style>
+
+<div class="main" style="padding: 20px 0 20px 0;">
+  <h1>Office Description</h1>
+  <table class='table'>
+    <tr>
+      <th>Fund Id</th>
+      <th>Fund Name</th>
+      <th>Morningstar Category</th>
+      <th>Broad Asset Class</th>
+      <th>Returns</th>
+      <th>Net Expense Ratio</th>
+    </tr>
+    {% for fund in office_description %}
+      <!-- <tr class='{{"success" if fund["NET_EXPENSE_RATIO"] > 4.0}}'> -->
+      <tr>
+        <td>{{fund['FUND_ID']}}</td>
+        <td>{{fund['FUND_STANDARD_NAME']}}</td>
+        <td>{{fund['FUND_CATEGORY']}}</td>
+        <td>{{fund['BROAD_FUND_CATEGORY']}}</td>
+        <td>{{fund['1_YEAR_RETURNS']}}</td>
+        <td>{{"%.2f" | format(fund['NET_EXPENSE_RATIO'])}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <hr>
+
+  <h1>Fund Recommendations</h1>
+  <table class='table'>
+    <tr>
+      <th>Fund Id</th>
+      <th>Fund Name</th>
+      <th>Morningstar Category</th>
+      <th>Broad Asset Class</th>
+      <th>Returns</th>
+      <th>Net Expense Ratio</th>
+    </tr>
+    {% for fund in fund_recommendations %}
+      <tr>
+        <td>{{fund['FUND_ID']}}</td>
+        <td>{{fund['FUND_STANDARD_NAME']}}</td>
+        <td>{{fund['FUND_CATEGORY']}}</td>
+        <td>{{fund['BROAD_FUND_CATEGORY']}}</td>
+        <td>{{fund['1_YEAR_RETURNS']}}</td>
+        <td>{{"%.2f" | format(fund['NET_EXPENSE_RATIO'])}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

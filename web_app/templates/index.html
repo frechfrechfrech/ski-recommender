@@ -76,6 +76,21 @@ button {
 
 <br><br>
 
+
+
+<form action='/recommendations', method='POST'>
+  <div><h4><b>Step 3: Choose the zip.</b></h4></div>
+
+<select name="zip" id="select_zip" class="selectpicker form-control">
+    <option selected="selected" value = ''>No Zip Selected</option>
+    {% for zip in df_firm_zip['ZIP_CODE'].unique()|sort %}
+    <option value="{{ zip }}">{{ zip }}</option>
+    {% endfor %}
+</select>
+
+<br><br>
+
+
 <!-- <div><h4><b>Step 2: Choose a trail that you know you liked at that ski area.</b>
 
 <a href="#" id="make_url"><font color="black"><b><u>Need help remembering trails?</u></b></font></a></h4> </div>
